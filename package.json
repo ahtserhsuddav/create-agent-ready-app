@@ -1,6 +1,6 @@
 {
 	"name": "create-agent-ready-app",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Create a TanStack Start or Next.js app that coding agents are ready to work in: only the add-ons you pick, official agent skills from the stack's makers (Vercel, Better Auth, Cloudflare, GitHub, Resend, Stripe, Supabase…) kept up to date, and a design workflow built on your references, awesome-design-md and taste-skill.",
 	"type": "module",
 	"license": "MIT",
