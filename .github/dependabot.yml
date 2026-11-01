@@ -1,0 +1,24 @@
+# Weekly updates for the kit's own dependencies and GitHub Actions, one grouped pull request each. A release must be
+# 7 days old before Dependabot proposes it, so a compromised release is usually caught first.
+# Action versions in template/agent/.github/workflows/ are templates Dependabot can't read: bump those by hand when
+# the same action is bumped here.
+version: 2
+updates:
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      dependencies:
+        patterns: ["*"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ["*"]

@@ -1,0 +1,47 @@
+name: Bug report
+description: The CLI failed, or a project it created doesn't work.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting. Please don't paste secrets (`.env` values, API keys, tokens) into the logs below.
+  - type: input
+    id: version
+    attributes:
+      label: Kit version
+      description: "`npx create-agent-ready-app@latest --version`, or `kitVersion` in the project's `.agents/kit.json`."
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      description: The full command with its flags, or the answers you picked in the prompts.
+      placeholder: bun create agent-ready-app my-app --preset app --deploy cloudflare
+      render: shell
+    validations:
+      required: true
+  - type: dropdown
+    id: package-manager
+    attributes:
+      label: Package manager
+      options: [bun, pnpm, npm]
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: OS and versions
+      placeholder: macOS 26.1, Node 24.11, Bun 1.3.4
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened, and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      description: The CLI's last lines, or the failing command's error.
+      render: text

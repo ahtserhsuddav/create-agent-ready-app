@@ -1,0 +1,29 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["./.agents/biome.kit.json"],
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "includes": [
+      "**",
+      "!src/routeTree.gen.ts",
+      "!worker-configuration.d.ts",
+      "!src/shared/components/ui",
+      "!**/*.svg",
+      "!**/*.md",
+      "!src/server/db/drizzle/migrations",
+      "!docs/official",
+      "!.agents/skills",
+      "!.agents/kit.json",
+      "!.agents/kit.lock.json",
+      "!.claude",
+      "!skills-lock.json"
+    ]
+  },
+  "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2, "lineWidth": 100 },
+  "javascript": {
+    "formatter": { "quoteStyle": "single", "semicolons": "asNeeded", "trailingCommas": "all" }
+  },
+  "css": { "parser": { "tailwindDirectives": true } },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "linter": { "enabled": true }
+}

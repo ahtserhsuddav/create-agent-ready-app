@@ -1,0 +1,398 @@
+{
+	"$comment": "Which official doc pages each template follows. `bun run verify:docs` re-fetches every page and lists the templates whose docs changed since they were last checked; after re-checking a template, `bun run verify:docs --accept` records the new page hashes. Template paths are labels: app/ is template/app (shared by both frameworks), next/ and tanstack-start/ are template/frameworks/<name>, agent/ is template/agent, src/ is the CLI.",
+	"sources": [
+		{
+			"templates": [
+				"(create pipeline) src/create/scaffold-base.ts"
+			],
+			"docs": [
+				"https://tanstack.com/cli/latest/docs/cli-reference",
+				"https://developers.cloudflare.com/workers/wrangler/configuration/"
+			]
+		},
+		{
+			"templates": [
+				"vite.config.ts",
+				"vitest.config.ts"
+			],
+			"docs": [
+				"https://tanstack.com/start/latest/docs/framework/react/guide/hosting",
+				"https://developers.cloudflare.com/workers/framework-guides/web-apps/tanstack-start/",
+				"https://react-svgr.com/docs/options/"
+			]
+		},
+		{
+			"templates": [
+				"src/router.tsx",
+				"src/routes/__root.tsx",
+				"src/shared/lib/tanstack/query-client.ts"
+			],
+			"docs": [
+				"https://tanstack.com/router/latest/docs/integrations/query"
+			]
+		},
+		{
+			"templates": [
+				"src/shared/lib/tanstack/form-context.ts",
+				"src/shared/lib/tanstack/form-hook.ts",
+				"src/shared/components/form/*",
+				"src/features/auth/components/*-form.tsx"
+			],
+			"docs": [
+				"https://tanstack.com/form/latest/docs/framework/react/guides/form-composition",
+				"https://tanstack.com/form/latest/docs/framework/react/guides/validation"
+			]
+		},
+		{
+			"templates": [
+				"src/server/api/hono/app.ts",
+				"src/shared/api/hono/client.ts",
+				"scripts/agent/templates/feature/hooks/use-__name__.ts.tpl"
+			],
+			"docs": [
+				"https://hono.dev/docs/guides/rpc"
+			]
+		},
+		{
+			"templates": [
+				"src/server/api/hono/middleware.ts",
+				"src/server/api/hono/error-handler.ts",
+				"scripts/agent/templates/feature/server/routes.ts.tpl"
+			],
+			"docs": [
+				"https://hono.dev/docs/helpers/factory",
+				"https://hono.dev/docs/api/exception",
+				"https://www.better-auth.com/docs/integrations/hono"
+			]
+		},
+		{
+			"templates": [
+				"src/server/auth/better-auth/*",
+				"src/routes/api/auth/$.ts",
+				"src/features/auth/functions.ts",
+				"src/routes/_private/route.tsx"
+			],
+			"docs": [
+				"https://www.better-auth.com/docs/integrations/tanstack",
+				"https://www.better-auth.com/docs/adapters/drizzle",
+				"https://www.better-auth.com/docs/plugins/email-otp",
+				"https://www.better-auth.com/docs/concepts/cookies"
+			]
+		},
+		{
+			"templates": [
+				"src/server/db/drizzle/client.ts",
+				"src/server/db/drizzle/test-client.ts",
+				"drizzle.config.ts"
+			],
+			"docs": [
+				"https://orm.drizzle.team/docs/get-started-postgresql",
+				"https://developers.cloudflare.com/hyperdrive/examples/connect-to-postgres/postgres-drivers-and-libraries/drizzle-orm/",
+				"https://orm.drizzle.team/docs/connect-cloudflare-d1",
+				"https://orm.drizzle.team/docs/drizzle-config-file"
+			]
+		},
+		{
+			"templates": [
+				"src/server/db/drizzle/middleware.ts",
+				"src/server/auth/better-auth/middleware.ts",
+				"scripts/agent/templates/feature/functions.ts.tpl"
+			],
+			"docs": [
+				"https://tanstack.com/start/latest/docs/framework/react/guide/middleware",
+				"https://tanstack.com/start/latest/docs/framework/react/guide/server-functions"
+			]
+		},
+		{
+			"templates": [
+				"src/server/config/env.ts"
+			],
+			"docs": [
+				"https://tanstack.com/start/latest/docs/framework/react/guide/environment-variables"
+			]
+		},
+		{
+			"templates": [
+				"src/server/email/templates/*",
+				"src/server/email/resend/send.ts",
+				"src/server/email/zeptomail/send.ts"
+			],
+			"docs": [
+				"https://react.email/docs/introduction",
+				"https://resend.com/docs/send-with-nodejs",
+				"https://www.zoho.com/zeptomail/help/api/email-sending.html"
+			]
+		},
+		{
+			"templates": [
+				"components.json",
+				"(create pipeline) src/create/official-clis.ts"
+			],
+			"docs": [
+				"https://ui.shadcn.com/docs/cli",
+				"https://ui.shadcn.com/docs/components-json"
+			]
+		},
+		{
+			"templates": [
+				"biome.json",
+				".agents/biome.kit.json",
+				"knip.json"
+			],
+			"docs": [
+				"https://biomejs.dev/reference/configuration/",
+				"https://knip.dev/reference/configuration"
+			]
+		},
+		{
+			"templates": [
+				"next/next.config.ts",
+				"next/src/app/**",
+				"agent/AGENTS.md (Next.js block)"
+			],
+			"docs": [
+				"https://nextjs.org/docs/app/guides/ai-agents.md",
+				"https://nextjs.org/docs/app/api-reference/cli/create-next-app.md",
+				"https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack.md"
+			]
+		},
+		{
+			"templates": [
+				"next/src/app/api/[[...route]]/route.ts"
+			],
+			"docs": [
+				"https://hono.dev/docs/getting-started/nextjs"
+			]
+		},
+		{
+			"templates": [
+				"next/src/app/api/auth/[...all]/route.ts",
+				"next/src/server/auth/better-auth/session.ts",
+				"app/src/server/auth/better-auth/setup.ts (nextCookies)"
+			],
+			"docs": [
+				"https://www.better-auth.com/docs/integrations/next"
+			]
+		},
+		{
+			"templates": [
+				"app/src/server/auth/better-auth/setup.ts (email and password)",
+				"*/src/features/auth/**"
+			],
+			"docs": [
+				"https://www.better-auth.com/docs/authentication/email-password.md"
+			]
+		},
+		{
+			"templates": [
+				"next/wrangler.jsonc",
+				"next/open-next.config.ts",
+				"manifest scripts next+cloudflare"
+			],
+			"docs": [
+				"https://opennext.js.org/cloudflare/get-started"
+			]
+		},
+		{
+			"templates": [
+				"next/src/shared/lib/tanstack/query-provider.tsx"
+			],
+			"docs": [
+				"https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr"
+			]
+		},
+		{
+			"templates": [
+				"app/src/server/db/drizzle/client.ts (attachDatabasePool)",
+				"app/src/server/auth/better-auth/setup.ts (waitUntil)"
+			],
+			"docs": [
+				"https://vercel.com/docs/functions/functions-api-reference/vercel-functions-package.md"
+			]
+		},
+		{
+			"templates": [
+				"(create pipeline) src/create/official-clis.ts (TanStack Intent)",
+				"tanstack-start package.json intent.skills"
+			],
+			"docs": [
+				"https://tanstack.com/intent/latest/docs/getting-started/quick-start-consumers"
+			]
+		},
+		{
+			"templates": [
+				"src/skills.ts",
+				"agent/.github/workflows/skills-update.yml"
+			],
+			"docs": [
+				"https://raw.githubusercontent.com/vercel-labs/skills/main/docs/commands.md"
+			]
+		}
+	],
+	"verified": {
+		"https://tanstack.com/router/latest/docs/integrations/query": {
+			"hash": "64621c80c467a7e49f43475fca46eccec0ad82f7eb3facbc1ace097dc999ffa4",
+			"date": "2026-10-31"
+		},
+		"https://tanstack.com/form/latest/docs/framework/react/guides/form-composition": {
+			"hash": "0f260407199687e44ee7ff80665538d796514ee0d6de299b506338718e0e7029",
+			"date": "2026-10-31"
+		},
+		"https://tanstack.com/form/latest/docs/framework/react/guides/validation": {
+			"hash": "7726419332905192604a12576154f89f4a8a3c06afe440e3645f3dc3d2355dca",
+			"date": "2026-10-31"
+		},
+		"https://tanstack.com/start/latest/docs/framework/react/guide/server-functions": {
+			"hash": "bb26b2cbdfed83e2042ba9a70a64c78b8eb2ae66e77852e6c789fb9079a3ddad",
+			"date": "2026-10-31"
+		},
+		"https://tanstack.com/cli/latest/docs/cli-reference": {
+			"hash": "8b86f536b14a566caae2a7e570bfb3ebd1245a8a024e3dcf95123183f77360a3",
+			"date": "2026-10-31"
+		},
+		"https://tanstack.com/start/latest/docs/framework/react/guide/hosting": {
+			"hash": "6606e4910eee4016824c04e5718faccbbff7949b75904c2c7885a8bf60fb754c",
+			"date": "2026-10-31"
+		},
+		"https://tanstack.com/start/latest/docs/framework/react/guide/environment-variables": {
+			"hash": "5d3f0daaa634ace7e71feb8f313cf400e0a1eb61c2ff6f17f29e6d5cc4d4e9b4",
+			"date": "2026-10-31"
+		},
+		"https://developers.cloudflare.com/workers/wrangler/configuration/": {
+			"hash": "5b0fcca07f3e8d384f4f464be197406228ba3e365e188d6dcf29a6bd244516cc",
+			"date": "2026-10-31"
+		},
+		"https://resend.com/docs/send-with-nodejs": {
+			"hash": "e4d7c483bac867969373ac86f91642235f41f92a69493c7c35273167fb98a489",
+			"date": "2026-10-31"
+		},
+		"https://developers.cloudflare.com/workers/framework-guides/web-apps/tanstack-start/": {
+			"hash": "3115e0c547200de051d9ae791603b0d70f08f79c41d6e81f81d5701cb80653fd",
+			"date": "2026-10-31"
+		},
+		"https://developers.cloudflare.com/hyperdrive/examples/connect-to-postgres/postgres-drivers-and-libraries/drizzle-orm/": {
+			"hash": "f5889d51972cae5207a0b8517b02547cbd950a243400c8aa3fd4b16ba3d7bf2f",
+			"date": "2026-10-31"
+		},
+		"https://ui.shadcn.com/docs/cli": {
+			"hash": "1cbe7826b863decc8a0fc15315ffbbf53b470e42e7e529497c49db8d48936384",
+			"date": "2026-10-31"
+		},
+		"https://www.better-auth.com/docs/integrations/tanstack": {
+			"hash": "b8894f621919838c86d046fb18b0d0aa9cb4c4c93d947c6273507a4ec97ac32a",
+			"date": "2026-10-31"
+		},
+		"https://www.better-auth.com/docs/adapters/drizzle": {
+			"hash": "583eca6eefafe1f108e27d08e24ccf4a13b6d40d65bbbe75b9319168b659ff40",
+			"date": "2026-10-31"
+		},
+		"https://www.better-auth.com/docs/plugins/email-otp": {
+			"hash": "998480a9ccda007b776f5cbd1eb5fb342f07efb7ea280812ebe3d422a1074709",
+			"date": "2026-10-31"
+		},
+		"https://www.better-auth.com/docs/concepts/cookies": {
+			"hash": "7a129ae4f5b5c06775b609a7c3181432765c467a8d1bdc04ab5f518cce8c4d81",
+			"date": "2026-10-31"
+		},
+		"https://www.better-auth.com/docs/integrations/hono": {
+			"hash": "6638b424407a4ec17ffe57306641b1e782633ac025e6ff98b1334194149ff4df",
+			"date": "2026-10-31"
+		},
+		"https://ui.shadcn.com/docs/components-json": {
+			"hash": "04c7db63ab4f51207db23a1017e04f99736084a87358ef78c291cd594f14d90c",
+			"date": "2026-10-31"
+		},
+		"https://orm.drizzle.team/docs/drizzle-config-file": {
+			"hash": "76ea9928fc29da598e2bf28c5ade7292cbe62a1eacebc11a6a81313289ed8303",
+			"date": "2026-10-31"
+		},
+		"https://orm.drizzle.team/docs/get-started-postgresql": {
+			"hash": "1b27904cf63e0b8d1239fbf4ab301343670be91cde779e727ad478c37a95e523",
+			"date": "2026-10-31"
+		},
+		"https://orm.drizzle.team/docs/connect-cloudflare-d1": {
+			"hash": "68709be9cb35b34e360f2527563c319766fc9222e633b000171666148f8259ab",
+			"date": "2026-10-31"
+		},
+		"https://knip.dev/reference/configuration": {
+			"hash": "3d77744647cdf13191d17ff776ef068e4868728750afd9b9849820e9d600468f",
+			"date": "2026-10-31"
+		},
+		"https://react.email/docs/introduction": {
+			"hash": "b9eb878554f52e32d39f6321e89ba12341bf99efd28e4aa0f621ce3de907e88a",
+			"date": "2026-10-31"
+		},
+		"https://tanstack.com/start/latest/docs/framework/react/guide/middleware": {
+			"hash": "12b0bb1fd9a1480e4f025c0822bb4cf702ae68f2b7a2c75751ae7c8d804514dc",
+			"date": "2026-10-31"
+		},
+		"https://react-svgr.com/docs/options/": {
+			"hash": "6ef69e3d034f98cf238510cfbac432f31d90f96fd62d1b985c73c2c2a61bd4e9",
+			"date": "2026-10-31"
+		},
+		"https://hono.dev/docs/api/exception": {
+			"hash": "305d9e6b59cf671f2fa7bc40adf126f2d23bdc1be7fdb308325d295df16319c9",
+			"date": "2026-10-31"
+		},
+		"https://hono.dev/docs/guides/rpc": {
+			"hash": "c05256c0192cf59d14b4108edfb0c1982c3c334afd76b56fa9639aa6c505eab6",
+			"date": "2026-10-31"
+		},
+		"https://hono.dev/docs/helpers/factory": {
+			"hash": "bce4c900578aa739f5ee93aed9743f8c4cbb908f8867a0708a938f95ddcf77bc",
+			"date": "2026-10-31"
+		},
+		"https://www.zoho.com/zeptomail/help/api/email-sending.html": {
+			"hash": "e00c4a4e2b317d8302be04cc531b863c0c46ce2a69a0508858fb00d9d088dda1",
+			"date": "2026-10-31"
+		},
+		"https://biomejs.dev/reference/configuration/": {
+			"hash": "71b86d507ac48e2938808bb4b5be34db137351b1a38f1965dcff158c823a7f58",
+			"date": "2026-10-31"
+		},
+		"https://tanstack.com/intent/latest/docs/getting-started/quick-start-consumers": {
+			"hash": "a13050085d0c8fe45003c46a405ca0534e33376deb73effa50e3a86810bad72b",
+			"date": "2026-11-01"
+		},
+		"https://raw.githubusercontent.com/vercel-labs/skills/main/docs/commands.md": {
+			"hash": "95c441223762762a5fe046142f0d0a39bbd81f73eefee02cfb6e1bab6c71e092",
+			"date": "2026-11-01"
+		},
+		"https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr": {
+			"hash": "dcbc4306b5fdfe2a99bc79a4b490273c29f06e86eff9c1687a647d23f0f01045",
+			"date": "2026-11-01"
+		},
+		"https://nextjs.org/docs/app/api-reference/cli/create-next-app.md": {
+			"hash": "49de8337dc0ed79758d702b647906c348ce04f2bcd90555cf2959f7d32477622",
+			"date": "2026-11-01"
+		},
+		"https://opennext.js.org/cloudflare/get-started": {
+			"hash": "7786702dbc46a4532a210113e0ab5032c73d9ee2fd2b35137fea1f3d635e8c78",
+			"date": "2026-11-01"
+		},
+		"https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack.md": {
+			"hash": "3d86d9eae17001ee7994e4d095a23bbdf1791b00b33bd0e2ace29ee4268ed758",
+			"date": "2026-11-01"
+		},
+		"https://hono.dev/docs/getting-started/nextjs": {
+			"hash": "184b66017b37440ac8007d01393536b589d9aa7db55cbe76d505c245eebafc43",
+			"date": "2026-11-01"
+		},
+		"https://www.better-auth.com/docs/integrations/next": {
+			"hash": "4bc0510184e81834c543122fa281b9ad7213f5222d0be206eccd0b7c39c651bc",
+			"date": "2026-11-01"
+		},
+		"https://vercel.com/docs/functions/functions-api-reference/vercel-functions-package.md": {
+			"hash": "369e15ccb5a9aaa839686dc9da1ab1fa97c3c720d48c13521b21b39289deb181",
+			"date": "2026-11-01"
+		},
+		"https://www.better-auth.com/docs/authentication/email-password.md": {
+			"hash": "757d2ee59b4553e0bc856d587637583d14647725c50505998b3cffc3cb8f7ce1",
+			"date": "2026-11-01"
+		},
+		"https://nextjs.org/docs/app/guides/ai-agents.md": {
+			"hash": "c8b431269ea5f9805da449d1aff36be8289116f1967020f3d594fdc0fc862c00",
+			"date": "2026-11-01"
+		}
+	}
+}

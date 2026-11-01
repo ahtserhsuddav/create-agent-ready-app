@@ -1,0 +1,48 @@
+# CI: the heavy checks run here, not in agent sessions. Every pull request and every push to main.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # the scope check compares against main
+{{#pm-bun}}
+      - uses: oven-sh/setup-bun@v2
+{{/pm-bun}}
+{{#pm-pnpm}}
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: pnpm
+{{/pm-pnpm}}
+{{#pm-npm}}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+{{/pm-npm}}
+      - run: {{installFrozen}}
+{{#cloudflare}}
+      - run: {{run}} cf-typegen
+{{/cloudflare}}
+      - run: {{run}} check
+      - run: {{run}} build
+      - run: {{audit}} --audit-level=high
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: trufflesecurity/trufflehog@v3.99.7
+        with:
+          extra_args: --results=verified,unknown

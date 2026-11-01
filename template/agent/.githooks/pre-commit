@@ -1,0 +1,11 @@
+#!/bin/sh
+# agent-ready: formats and auto-fixes the staged files with Biome, then stages the result.
+# Never blocks a commit: `bun run check` (end of Big changes) and CI run the real checks.
+[ -x node_modules/.bin/biome ] || exit 0
+files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(ts|tsx|js|jsx|json|jsonc|css)$')
+[ -z "$files" ] && exit 0
+# shellcheck disable=SC2086
+node_modules/.bin/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true $files >/dev/null 2>&1
+# shellcheck disable=SC2086
+git add $files
+exit 0

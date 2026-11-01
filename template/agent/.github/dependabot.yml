@@ -1,0 +1,25 @@
+# Weekly pull requests that keep packages current; CI checks each one. Merge the minor and patch groups freely;
+# read the migration guide before merging a major (skill official-docs → Upgrading a package). A release must be
+# 7 days old before Dependabot proposes it, so a compromised release is usually caught first.
+version: 2
+updates:
+{{#pm-bun}}
+  - package-ecosystem: bun
+{{/pm-bun}}
+{{^pm-bun}}
+  - package-ecosystem: npm
+{{/pm-bun}}
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7

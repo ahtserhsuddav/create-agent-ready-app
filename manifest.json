@@ -1,0 +1,615 @@
+{
+	"$comment": "Everything create-agent-ready-app puts into a project. Keys in files/scripts/packages/claudeSettings/shadcn.components are template flags (see src/kit-config.ts renderFlags); 'a+b' means both. File rules: first match wins; unmatched files are project-owned; 'block' files hold the kit's rules between its own markers and keep everything else. Package lists hold names only: versions are resolved at create time. skillPacks install community skills from their upstream repos with the skills CLI, so every project gets that day's version.",
+	"verifiedOn": "2026-11-01",
+	"frameworks": {
+		"tanstack-start": {
+			"label": "TanStack Start",
+			"hint": "Vite, type-safe routing, server functions",
+			"scaffold": [
+				"@tanstack/cli@latest",
+				"create",
+				"{name}",
+				"--target-dir",
+				"{dir}",
+				"--package-manager",
+				"{pm}",
+				"--deployment",
+				"{deployment}",
+				"--toolchain",
+				"biome",
+				"--no-examples",
+				"--no-git",
+				"--no-install",
+				"--no-intent",
+				"-y"
+			],
+			"expectFiles": [
+				"package.json",
+				"vite.config.ts",
+				"tsconfig.json",
+				"src/router.tsx",
+				"src/routes/__root.tsx",
+				"src/styles.css"
+			],
+			"deployments": { "node": "nitro", "vercel": "vercel", "cloudflare": "cloudflare" }
+		},
+		"next": {
+			"label": "Next.js",
+			"hint": "App Router, Server Components, Cache Components",
+			"scaffold": [
+				"create-next-app@latest",
+				"{dir}",
+				"--ts",
+				"--tailwind",
+				"--biome",
+				"--app",
+				"--src-dir",
+				"--import-alias",
+				"#/*",
+				"--agents-md",
+				"--no-agent-feedback",
+				"--use-{pm}",
+				"--skip-install",
+				"--disable-git",
+				"--yes"
+			],
+			"expectFiles": [
+				"package.json",
+				"next.config.ts",
+				"tsconfig.json",
+				"src/app/layout.tsx",
+				"src/app/page.tsx",
+				"src/app/globals.css",
+				"AGENTS.md"
+			]
+		}
+	},
+	"runtimes": {
+		"bun": { "label": "Bun", "hint": "scripts run with bun --bun", "pms": ["bun"] },
+		"node": { "label": "Node.js", "hint": "22.20 or newer", "pms": ["pnpm", "npm"] }
+	},
+	"deploys": {
+		"node": { "label": "Node server", "hint": "Docker, a VPS, Railway, Render" },
+		"vercel": { "label": "Vercel", "hint": "zero config" },
+		"cloudflare": { "label": "Cloudflare Workers", "hint": "edge; Hyperdrive or D1" }
+	},
+	"addOns": {
+		"shadcn": { "label": "shadcn/ui", "hint": "components, theme, toasts" },
+		"query": { "label": "TanStack Query", "hint": "data fetching, caching, mutations" },
+		"form": { "label": "TanStack Form", "hint": "forms with Zod validation" },
+		"hono": { "label": "Hono", "hint": "/api/* with a typed RPC client" },
+		"db": { "label": "Database", "hint": "Drizzle ORM" },
+		"auth": {
+			"label": "Better Auth",
+			"hint": "email + password sign-in, sessions, protected pages",
+			"requires": ["db"]
+		},
+		"email": { "label": "Email", "hint": "React Email templates" },
+		"seo": { "label": "SEO / AEO", "hint": "robots.txt, sitemap.xml, llms.txt, JSON-LD" }
+	},
+	"databases": {
+		"postgres": {
+			"label": "Postgres (Drizzle)",
+			"hint": "Docker locally; Supabase, Neon or any host in production"
+		},
+		"d1": { "label": "Cloudflare D1 (Drizzle)", "hint": "SQLite at the edge", "deploys": ["cloudflare"] }
+	},
+	"emailProviders": { "resend": { "label": "Resend" }, "zeptomail": { "label": "ZeptoMail" } },
+	"addOnGroups": [
+		{ "label": "UI", "items": ["shadcn"] },
+		{ "label": "Data", "items": ["query"] },
+		{ "label": "Forms", "items": ["form"] },
+		{ "label": "API", "items": ["hono"] },
+		{ "label": "Database", "pickOne": true, "items": ["postgres", "d1"] },
+		{ "label": "Authentication", "items": ["auth"] },
+		{ "label": "Email", "pickOne": true, "items": ["resend", "zeptomail"] },
+		{ "label": "Deployment", "pickOne": true, "items": ["node", "vercel", "cloudflare"] },
+		{ "label": "SEO", "items": ["seo"] },
+		{ "label": "Agent skills", "items": ["marketing", "security-review", "payments", "next-workflows"] }
+	],
+	"presets": {
+		"static": ["seo", "shadcn"],
+		"app": ["seo", "shadcn", "query", "form", "hono", "postgres", "auth"],
+		"full": ["seo", "shadcn", "query", "form", "hono", "postgres", "auth", "resend"]
+	},
+	"packages": {
+		"core": { "dev": ["knip", "vitest", "@playwright/cli"] },
+		"query": { "deps": ["@tanstack/react-query", "@tanstack/react-query-devtools"] },
+		"form": { "deps": ["@tanstack/react-form", "zod", "lucide-react"] },
+		"hono": { "deps": ["hono", "@hono/zod-validator", "zod"] },
+		"db": { "deps": ["drizzle-orm", "zod"], "dev": ["drizzle-kit"] },
+		"postgres": { "deps": ["pg"], "dev": ["@types/pg", "@electric-sql/pglite"] },
+		"d1": { "dev": ["sql.js", "@types/sql.js"] },
+		"auth": { "deps": ["better-auth", "zod"] },
+		"email": { "deps": ["react-email", "zod"], "dev": ["@react-email/ui"] },
+		"resend": { "deps": ["resend"] },
+		"tanstack-start": {
+			"dev": ["vite-plugin-svgr", "@svgr/plugin-svgo", "@svgr/plugin-jsx", "@tanstack/intent", "@tanstack/router-cli"]
+		},
+		"query+tanstack-start": { "deps": ["@tanstack/react-router-ssr-query"] },
+		"vercel+postgres": { "deps": ["@vercel/functions"] },
+		"tanstack-start+vercel+auth+email": { "deps": ["@vercel/functions"] },
+		"next": { "dev": ["@svgr/webpack", "@vitejs/plugin-react"] },
+		"next+hono": { "deps": ["@hono/vercel"] },
+		"next+cloudflare": { "deps": ["@opennextjs/cloudflare"], "dev": ["wrangler"] }
+	},
+	"verified": {
+		"@tanstack/react-start": "1",
+		"@tanstack/react-router": "1",
+		"@tanstack/router-cli": "1",
+		"@tanstack/react-query": "5",
+		"@tanstack/react-router-ssr-query": "1",
+		"@tanstack/react-form": "1",
+		"react": "19",
+		"vite": "8",
+		"vitest": "5",
+		"typescript": "6",
+		"@biomejs/biome": "2",
+		"knip": "6",
+		"hono": "4",
+		"@hono/zod-validator": "0.9",
+		"zod": "4",
+		"drizzle-orm": "0.45",
+		"drizzle-kit": "0.31",
+		"pg": "8",
+		"@electric-sql/pglite": "0.5",
+		"sql.js": "1",
+		"better-auth": "1",
+		"resend": "6",
+		"react-email": "6",
+		"@react-email/ui": "6",
+		"wrangler": "4",
+		"@cloudflare/vite-plugin": "1",
+		"nitro": "3",
+		"vite-plugin-svgr": "5",
+		"shadcn": "4",
+		"@playwright/cli": "0.1",
+		"@tanstack/intent": "0.5",
+		"@vercel/functions": "3",
+		"next": "16",
+		"@opennextjs/cloudflare": "1",
+		"@hono/vercel": "1",
+		"@svgr/webpack": "8",
+		"@vitejs/plugin-react": "6"
+	},
+	"holdBack": {},
+	"scaffoldLines": { "@types/node": "22" },
+	"pnpmAllowBuilds": ["esbuild"],
+	"shadcn": {
+		"preset": "nova",
+		"components": {
+			"shadcn": ["button", "empty", "sonner"],
+			"form+shadcn": ["field", "input", "input-group", "label"],
+			"auth-pages": ["card", "separator"]
+		}
+	},
+	"skillPacks": {
+		"react": {
+			"label": "React",
+			"sources": [
+				{
+					"repo": "vercel-labs/agent-skills",
+					"skills": [
+						"vercel-react-best-practices",
+						"vercel-composition-patterns",
+						"vercel-react-view-transitions",
+						"vercel-react-native-skills"
+					]
+				}
+			]
+		},
+		"design": {
+			"label": "Design (website-design runs them in order), writing and performance",
+			"sources": [
+				{ "repo": "Leonxlnx/taste-skill", "skills": ["design-taste-frontend"] },
+				{ "repo": "anthropics/skills", "skills": ["frontend-design"] },
+				{ "repo": "vercel-labs/agent-skills", "skills": ["web-design-guidelines", "writing-guidelines"] },
+				{ "repo": "cloudflare/skills", "skills": ["web-perf"] }
+			]
+		},
+		"testing": {
+			"label": "Testing and browser checks",
+			"sources": [
+				{ "repo": "microsoft/playwright-cli", "skills": ["playwright-cli"] },
+				{ "repo": "anthropics/skills", "skills": ["webapp-testing"] }
+			]
+		},
+		"workflow": {
+			"label": "Workflow (grill-me, improve-codebase-architecture and handoff run only when you type them)",
+			"sources": [
+				{
+					"repo": "mattpocock/skills",
+					"skills": [
+						"grill-me",
+						"grilling",
+						"tdd",
+						"codebase-design",
+						"code-review",
+						"improve-codebase-architecture",
+						"diagnosing-bugs",
+						"handoff"
+					]
+				}
+			]
+		},
+		"github": {
+			"label": "GitHub (commits, Actions, Dependabot)",
+			"sources": [
+				{ "repo": "github/awesome-copilot", "skills": ["git-commit", "github-actions-hardening", "dependabot"] }
+			]
+		},
+		"discovery": {
+			"label": "Finding more skills",
+			"sources": [{ "repo": "vercel-labs/skills", "skills": ["find-skills"] }]
+		},
+		"next": {
+			"label": "Next.js dev loop",
+			"when": ["next"],
+			"sources": [
+				{ "repo": "vercel/next.js", "skills": ["next-dev-loop"] },
+				{ "repo": "vercel-labs/agent-browser", "skills": ["agent-browser"] }
+			]
+		},
+		"shadcn": {
+			"label": "shadcn/ui",
+			"when": ["shadcn"],
+			"sources": [{ "repo": "shadcn-ui/ui", "skills": ["shadcn"] }]
+		},
+		"auth": {
+			"label": "Better Auth and bot checks",
+			"when": ["auth"],
+			"sources": [
+				{
+					"repo": "better-auth/skills",
+					"skills": [
+						"better-auth-best-practices",
+						"better-auth-security-best-practices",
+						"email-and-password-best-practices"
+					]
+				},
+				{ "repo": "cloudflare/skills", "skills": ["turnstile-spin"] }
+			]
+		},
+		"postgres": {
+			"label": "Postgres",
+			"when": ["postgres"],
+			"sources": [{ "repo": "supabase/agent-skills", "skills": ["supabase-postgres-best-practices"] }]
+		},
+		"hono": { "label": "Hono", "when": ["hono"], "sources": [{ "repo": "honojs/skills", "skills": ["hono"] }] },
+		"cloudflare": {
+			"label": "Cloudflare",
+			"when": ["cloudflare"],
+			"sources": [{ "repo": "cloudflare/skills", "skills": ["cloudflare", "workers-best-practices", "wrangler"] }]
+		},
+		"vercel": {
+			"label": "Vercel",
+			"when": ["vercel"],
+			"sources": [{ "repo": "vercel-labs/agent-skills", "skills": ["deploy-to-vercel"] }]
+		},
+		"email": {
+			"label": "Email",
+			"when": ["email"],
+			"sources": [{ "repo": "resend/resend-skills", "skills": ["react-email", "email-best-practices"] }]
+		},
+		"resend": {
+			"label": "Resend",
+			"when": ["resend"],
+			"sources": [{ "repo": "resend/resend-skills", "skills": ["resend"] }]
+		},
+		"marketing": {
+			"label": "Marketing & SEO",
+			"hint": "SEO audits, AI search, content strategy",
+			"optional": true,
+			"sources": [
+				{ "repo": "coreyhaines31/marketingskills", "skills": ["seo-audit", "ai-seo", "content-strategy"] }
+			]
+		},
+		"security-review": {
+			"label": "Security review",
+			"hint": "Sentry's security review skill",
+			"optional": true,
+			"sources": [{ "repo": "getsentry/skills", "skills": ["security-review"] }]
+		},
+		"payments": {
+			"label": "Payments (Stripe)",
+			"hint": "Stripe's best practices, docs and upgrade guides",
+			"optional": true,
+			"sources": [{ "repo": "stripe/ai", "skills": ["stripe-best-practices", "stripe-docs", "upgrade-stripe"] }]
+		},
+		"next-workflows": {
+			"label": "Next.js workflows",
+			"hint": "bundle and Cache Components optimizers",
+			"optional": true,
+			"frameworks": ["next"],
+			"sources": [
+				{
+					"repo": "vercel/next.js",
+					"skills": [
+						"next-bundle-optimizer",
+						"next-cache-components-adoption",
+						"next-cache-components-optimizer"
+					]
+				}
+			]
+		}
+	},
+	"files": [
+		{ "path": "AGENTS.md", "owner": "block" },
+		{ "path": "CLAUDE.md", "owner": "block" },
+		{ "path": ".agents/biome.kit.json", "owner": "kit" },
+		{ "path": ".agents/skills/database-change/", "owner": "kit", "when": ["db"] },
+		{ "path": ".agents/skills/seo-aeo/", "owner": "kit", "when": ["seo"] },
+		{ "path": ".agents/skills/", "owner": "kit" },
+		{ "path": "scripts/agent/templates/feature/content.ts.tpl", "owner": "kit" },
+		{ "path": "scripts/agent/templates/feature/actions.ts.tpl", "owner": "kit", "when": ["db", "!hono"] },
+		{ "path": "scripts/agent/templates/feature/functions.ts.tpl", "owner": "kit", "when": ["db", "!hono"] },
+		{ "path": "scripts/agent/templates/feature/hooks/", "owner": "kit", "when": ["db", "query"] },
+		{ "path": "scripts/agent/templates/feature/server/routes.ts.tpl", "owner": "kit", "when": ["db", "hono"] },
+		{ "path": "scripts/agent/templates/feature/", "owner": "kit", "when": ["db"] },
+		{ "path": "scripts/agent/", "owner": "kit" },
+		{ "path": ".githooks/", "owner": "kit" },
+		{ "path": "docs/official/sources.json", "owner": "merge" },
+		{ "path": "next.config.ts", "owner": "project", "replace": true },
+		{ "path": "src/app/layout.tsx", "owner": "project", "replace": true },
+		{ "path": "src/app/page.tsx", "owner": "project", "replace": true },
+		{ "path": "src/app/globals.css", "owner": "project", "replace": true },
+		{ "path": "README.md", "owner": "project", "replace": true },
+		{ "path": "biome.json", "owner": "project", "replace": true },
+		{ "path": "vite.config.ts", "owner": "project", "replace": true },
+		{ "path": "src/router.tsx", "owner": "project", "replace": true },
+		{ "path": "src/styles.css", "owner": "project", "replace": true },
+		{ "path": "src/routes/__root.tsx", "owner": "project", "replace": true },
+		{ "path": "src/routes/index.tsx", "owner": "project", "replace": true },
+		{ "path": "open-next.config.ts", "owner": "project", "when": ["cloudflare"] },
+		{ "path": "wrangler.jsonc", "owner": "project", "when": ["cloudflare"] },
+		{ "path": "components.json", "owner": "project", "when": ["shadcn"] },
+		{ "path": "drizzle.config.ts", "owner": "project", "when": ["db"] },
+		{ "path": "better-auth.config.ts", "owner": "project", "when": ["auth"] },
+		{ "path": "docker-compose.yaml", "owner": "project", "when": ["postgres"] },
+		{ "path": ".env.example", "owner": "project", "when": ["dotenv"] },
+		{ "path": "src/app/robots.txt/", "owner": "project", "when": ["seo"] },
+		{ "path": "src/app/sitemap.xml/", "owner": "project", "when": ["seo"] },
+		{ "path": "src/app/llms.txt/", "owner": "project", "when": ["seo"] },
+		{ "path": "src/app/api/auth/", "owner": "project", "when": ["auth"] },
+		{ "path": "src/app/api/", "owner": "project", "when": ["hono"] },
+		{ "path": "src/app/(auth)/forgot-password/", "owner": "project", "when": ["auth-pages", "email"] },
+		{ "path": "src/app/(auth)/reset-password/", "owner": "project", "when": ["auth-pages", "email"] },
+		{ "path": "src/app/(auth)/", "owner": "project", "when": ["auth-pages"] },
+		{ "path": "src/app/(private)/", "owner": "project", "when": ["auth"] },
+		{ "path": "src/routes/robots[.]txt.ts", "owner": "project", "when": ["seo"] },
+		{ "path": "src/routes/sitemap[.]xml.ts", "owner": "project", "when": ["seo"] },
+		{ "path": "src/routes/llms[.]txt.ts", "owner": "project", "when": ["seo"] },
+		{ "path": "src/features/seo/", "owner": "project", "when": ["seo"] },
+		{ "path": "src/routes/api/auth/", "owner": "project", "when": ["auth"] },
+		{ "path": "src/routes/api/", "owner": "project", "when": ["hono"] },
+		{ "path": "src/routes/_auth/forgot-password.tsx", "owner": "project", "when": ["auth-pages", "email"] },
+		{ "path": "src/routes/_auth/reset-password.tsx", "owner": "project", "when": ["auth-pages", "email"] },
+		{ "path": "src/routes/_auth/", "owner": "project", "when": ["auth-pages"] },
+		{ "path": "src/routes/_private/", "owner": "project", "when": ["auth"] },
+		{ "path": "src/features/auth/functions.ts", "owner": "project", "when": ["auth"] },
+		{ "path": "src/features/auth/components/sign-out-button.tsx", "owner": "project", "when": ["auth"] },
+		{
+			"path": "src/features/auth/components/forgot-password-card.tsx",
+			"owner": "project",
+			"when": ["auth-pages", "email"]
+		},
+		{
+			"path": "src/features/auth/components/reset-password-card.tsx",
+			"owner": "project",
+			"when": ["auth-pages", "email"]
+		},
+		{ "path": "src/features/auth/", "owner": "project", "when": ["auth-pages"] },
+		{ "path": "src/server/api/", "owner": "project", "when": ["hono"] },
+		{ "path": "src/shared/api/", "owner": "project", "when": ["hono"] },
+		{ "path": "src/server/auth/", "owner": "project", "when": ["auth"] },
+		{ "path": "src/shared/auth/", "owner": "project", "when": ["auth"] },
+		{ "path": "src/server/db/", "owner": "project", "when": ["db"] },
+		{ "path": "src/server/email/resend/", "owner": "project", "when": ["resend"] },
+		{ "path": "src/server/email/zeptomail/", "owner": "project", "when": ["zeptomail"] },
+		{ "path": "src/server/email/templates/verify-email.tsx", "owner": "project", "when": ["email", "auth"] },
+		{
+			"path": "src/server/email/templates/reset-password-email.tsx",
+			"owner": "project",
+			"when": ["email", "auth"]
+		},
+		{ "path": "src/server/email/templates/welcome-email.tsx", "owner": "project", "when": ["email", "!auth"] },
+		{ "path": "src/server/config/", "owner": "project", "when": ["server-env"] },
+		{ "path": "src/shared/error/", "owner": "project", "when": ["error-model"] },
+		{ "path": "src/shared/components/toast/", "owner": "project", "when": ["shadcn", "query"] },
+		{ "path": "src/shared/components/form/", "owner": "project", "when": ["form"] },
+		{ "path": "src/shared/lib/tanstack/query-provider.tsx", "owner": "project", "when": ["query"] },
+		{ "path": "src/shared/lib/tanstack/query-client.ts", "owner": "project", "when": ["query"] },
+		{ "path": "src/shared/lib/tanstack/form-context.ts", "owner": "project", "when": ["form"] },
+		{ "path": "src/shared/lib/tanstack/form-hook.ts", "owner": "project", "when": ["form"] }
+	],
+	"scripts": {
+		"core": {
+			"check": "{{run}} typecheck && {{run}} lint && {{run}} unused && {{run}} test && {{run}} scope",
+			"lint": "biome check .",
+			"fix": "biome check --write .",
+			"unused": "knip",
+			"scope": "{{script}} scripts/agent/scope.ts",
+			"log": "{{script}} scripts/agent/log.ts",
+			"task:new": "{{script}} scripts/agent/task-new.ts",
+			"new:feature": "{{script}} scripts/agent/new-feature.ts",
+			"docs:sync": "{{script}} scripts/agent/docs-sync.ts",
+			"docs:get": "{{script}} scripts/agent/docs-get.ts",
+			"design:md": "{{script}} scripts/agent/design-md.ts",
+			"release:check": "{{script}} scripts/agent/release-check.ts",
+			"prepare": "{{script}} scripts/agent/link-skills-and-hooks.ts",
+			"kit:update": "{{dlx}} create-agent-ready-app@latest update .",
+			"kit:doctor": "{{dlx}} create-agent-ready-app@latest doctor .",
+			"skills:update": "{{dlx}} skills@latest update -p -y"
+		},
+		"tanstack-start": {
+			"dev": "vite dev --port 3000",
+			"build": "vite build",
+			"preview": "vite preview",
+			"typecheck": "tsr generate && tsc --noEmit"
+		},
+		"tanstack-start+runtime-bun+nitro": {
+			"dev": "bun --bun vite dev --port 3000",
+			"build": "bun --bun vite build",
+			"preview": "bun --bun vite preview"
+		},
+		"next": {
+			"dev": "next dev",
+			"build": "next build",
+			"start": "next start",
+			"typecheck": "next typegen && tsc --noEmit"
+		},
+		"next+runtime-bun+!cloudflare": {
+			"dev": "bun --bun next dev",
+			"build": "bun --bun next build",
+			"start": "bun --bun next start"
+		},
+		"runtime-bun": { "test": "bun --bun vitest run" },
+		"runtime-node": { "test": "vitest run" },
+		"tanstack-start+cloudflare": { "deploy": "{{run}} build && wrangler deploy", "cf-typegen": "wrangler types" },
+		"db+runtime-bun": { "db:generate": "bun --bun drizzle-kit generate" },
+		"db+runtime-node": { "db:generate": "drizzle-kit generate" },
+		"postgres+runtime-bun": {
+			"db:migrate": "bun --bun drizzle-kit migrate",
+			"db:studio": "bun --bun drizzle-kit studio"
+		},
+		"postgres+runtime-node": { "db:migrate": "drizzle-kit migrate", "db:studio": "drizzle-kit studio" },
+		"d1": { "db:migrate": "wrangler d1 migrations apply DB --local" },
+		"auth": {
+			"auth:generate": "{{dlx}} auth@latest generate --config better-auth.config.ts --adapter drizzle --dialect {{authDialect}} --output src/server/auth/better-auth/tables.ts --yes"
+		},
+		"email": { "email:dev": "email dev --dir src/server/email/templates --port 3001" },
+		"tanstack-start+node+runtime-bun": { "start": "bun .output/server/index.mjs" },
+		"tanstack-start+node+runtime-node": { "start": "node .output/server/index.mjs" },
+		"next+cloudflare": {
+			"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+			"deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+			"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+		}
+	},
+	"removeScripts": ["generate-routes", "format"],
+	"scriptsAddOnly": ["test", "prepare"],
+	"claudeSettings": {
+		"core": {
+			"allow": [
+				"Bash({{run}} dev)",
+				"Bash({{run}} build)",
+				"Bash({{run}} check)",
+				"Bash({{run}} typecheck)",
+				"Bash({{run}} lint)",
+				"Bash({{run}} fix)",
+				"Bash({{run}} unused)",
+				"Bash({{run}} test:*)",
+				"Bash({{run}} scope:*)",
+				"Bash({{run}} log:*)",
+				"Bash({{run}} task:new:*)",
+				"Bash({{run}} new:feature:*)",
+				"Bash({{run}} docs:sync)",
+				"Bash({{run}} docs:get:*)",
+				"Bash({{run}} design:md list:*)",
+				"Bash({{run}} release:check)",
+				"Bash(git status:*)",
+				"Bash(git diff:*)",
+				"Bash(git log:*)",
+				"Bash(rg:*)"
+			],
+			"ask": [
+				"Bash(git commit:*)",
+				"Bash(git push:*)",
+				"Bash(git merge:*)",
+				"Bash(git rebase:*)",
+				"Bash(gh pr merge:*)",
+				"Bash({{add}}:*)",
+				"Bash({{pm}} remove:*)",
+				"Bash({{pm}} update:*)",
+				"Bash({{run}} deploy:*)",
+				"Bash({{run}} skills:update)"
+			],
+			"deny": [
+				"Read(./.env)",
+				"Read(./.env.local)",
+				"Read(./.env.development)",
+				"Read(./.env.production)",
+				"Read(./.dev.vars)",
+				"Read(./.dev.vars.local)",
+				"Edit(./.env)",
+				"Edit(./.env.local)",
+				"Edit(./.dev.vars)",
+				"Read(./{{lockfile}})",
+				"Edit(./{{lockfile}})",
+				"Bash(rm -rf:*)",
+				"Bash(git reset --hard:*)",
+				"Bash(git clean:*)",
+				"Bash(git push --force:*)",
+				"Bash(git push -f:*)",
+				"Bash(git push --force-with-lease:*)",
+				"Bash(git checkout -- .:*)"
+			]
+		},
+		"cloudflare": {
+			"ask": [
+				"Bash(wrangler deploy:*)",
+				"Bash({{exec}} wrangler deploy:*)",
+				"Bash(wrangler rollback:*)",
+				"Bash({{exec}} wrangler rollback:*)",
+				"Bash(wrangler secret:*)",
+				"Bash({{exec}} wrangler secret:*)",
+				"Bash(wrangler r2:*)",
+				"Bash({{exec}} wrangler r2:*)",
+				"Bash(wrangler kv:*)",
+				"Bash({{exec}} wrangler kv:*)",
+				"Bash(wrangler d1:*)",
+				"Bash({{exec}} wrangler d1:*)",
+				"Bash(wrangler hyperdrive:*)",
+				"Bash({{exec}} wrangler hyperdrive:*)"
+			]
+		},
+		"db": {
+			"allow": ["Bash({{run}} db:generate)"],
+			"ask": [
+				"Bash({{run}} db:migrate:*)",
+				"Bash({{exec}} drizzle-kit migrate:*)",
+				"Bash({{exec}} drizzle-kit push:*)"
+			]
+		},
+		"auth": { "allow": ["Bash({{run}} auth:generate)"] },
+		"email": { "allow": ["Bash({{run}} email:dev)"] },
+		"tanstack-start": { "deny": ["Read(./src/routeTree.gen.ts)", "Edit(./src/routeTree.gen.ts)"] }
+	},
+	"gitignore": [
+		"# create-agent-ready-app",
+		".env",
+		".env.*",
+		"!.env.example",
+		".dev.vars",
+		".dev.vars.*",
+		".claude/settings.local.json",
+		"docs/official/cache/",
+		".agents/create.log",
+		".open-next"
+	],
+	"gitattributes": [
+		"# create-agent-ready-app",
+		"* text=auto eol=lf",
+		"CHANGELOG.md merge=union",
+		"{{lockfile}} linguist-generated=true",
+		"src/routeTree.gen.ts linguist-generated=true",
+		"docs/official/INDEX.md linguist-generated=true"
+	],
+	"routeTreeFileFooter": "import type { getRouter } from './router.tsx'\nimport type { createStart } from '@tanstack/react-start'\ndeclare module '@tanstack/react-start' {\n  interface Register {\n    ssr: true\n    router: Awaited<ReturnType<typeof getRouter>>\n  }\n}",
+	"tsconfigFlags": [
+		"strict",
+		"noUnusedLocals",
+		"noUnusedParameters",
+		"noFallthroughCasesInSwitch",
+		"allowImportingTsExtensions"
+	],
+	"legacyAgentFiles": ["GEMINI.md", ".cursorrules", ".windsurfrules", ".github/copilot-instructions.md"],
+	"budgets": {
+		"AGENTS.md": 90,
+		"PROJECT.md": 80,
+		"docs/DEPLOYMENT.md": 50,
+		"docs/RUNBOOK.md": 40,
+		"kitSkill": 130,
+		"taskFile": 15
+	}
+}

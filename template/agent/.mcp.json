@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+{{#cloudflare}}
+    "cloudflare-docs": { "type": "http", "url": "https://docs.mcp.cloudflare.com/mcp" }{{#auth}},{{/auth}}
+{{/cloudflare}}
+{{#auth}}
+    "better-auth": { "type": "http", "url": "https://mcp.better-auth.com/mcp" }
+{{/auth}}
+  }
+}

@@ -1,0 +1,249 @@
+{
+	"about": "Official docs per package for `bun run docs:sync`. Add a package only after confirming the source is the vendor's own. llms may map \"major.minor\" to a version's index, with \"latest\" as fallback.",
+	"ignore": [
+		"@types/",
+		"@biomejs/cli-",
+		"@esbuild/",
+		"@rollup/",
+		"@img/",
+		"@cloudflare/workerd-",
+		"@tailwindcss/oxide"
+	],
+	"platform": {
+		"bun": {
+			"docs": "https://bun.com/docs",
+			"llms": "https://bun.com/llms.txt",
+			"when": "runtime-bun"
+		},
+		"node": {
+			"when": "runtime-node",
+			"docs": "https://nodejs.org/docs/latest/api/"
+		},
+		"cloudflare-workers": {
+			"docs": "https://developers.cloudflare.com/workers/",
+			"llms": "https://developers.cloudflare.com/workers/llms.txt",
+			"mcp": "https://docs.mcp.cloudflare.com/mcp",
+			"skill": "workers-best-practices",
+			"when": "cloudflare"
+		},
+		"cloudflare-hyperdrive": {
+			"when": "cloudflare+postgres",
+			"docs": "https://developers.cloudflare.com/hyperdrive/",
+			"llms": "https://developers.cloudflare.com/hyperdrive/llms.txt"
+		},
+		"cloudflare-d1": {
+			"when": "d1",
+			"docs": "https://developers.cloudflare.com/d1/",
+			"llms": "https://developers.cloudflare.com/d1/llms.txt"
+		},
+		"postgres": {
+			"when": "postgres",
+			"docs": "https://www.postgresql.org/docs/current/",
+			"skill": "supabase-postgres-best-practices",
+			"note": "hosted on Supabase or Neon? add that provider here too"
+		}
+	},
+	"packages": {
+		"better-auth": {
+			"docs": "https://better-auth.com/docs",
+			"llms": {
+				"1.6": "https://better-auth.com/docs/1.6/llms.txt",
+				"1.8": "https://better-auth.com/docs/beta/llms.txt",
+				"latest": "https://better-auth.com/docs/llms.txt"
+			},
+			"mcp": "https://mcp.better-auth.com/mcp",
+			"skill": "better-auth-best-practices"
+		},
+		"@biomejs/biome": {
+			"docs": "https://biomejs.dev/reference/configuration/"
+		},
+		"class-variance-authority": {
+			"docs": "https://cva.style/docs"
+		},
+		"@cloudflare/vite-plugin": {
+			"docs": "https://developers.cloudflare.com/workers/vite-plugin/",
+			"llms": "https://developers.cloudflare.com/workers/llms.txt",
+			"mcp": "https://docs.mcp.cloudflare.com/mcp",
+			"skill": "workers-best-practices"
+		},
+		"clsx": {
+			"docs": "https://github.com/lukeed/clsx"
+		},
+		"cn": {
+			"docs": "https://github.com/shadcn-ui/cn#readme"
+		},
+		"drizzle-kit": {
+			"docs": "https://orm.drizzle.team/docs/kit-overview",
+			"llms": "https://orm.drizzle.team/llms.txt"
+		},
+		"drizzle-orm": {
+			"docs": "https://orm.drizzle.team/docs/overview",
+			"llms": "https://orm.drizzle.team/llms.txt"
+		},
+		"@electric-sql/pglite": {
+			"docs": "https://pglite.dev/docs/"
+		},
+		"@fontsource-variable/geist": {
+			"docs": "https://fontsource.org/fonts/geist/install"
+		},
+		"hono": {
+			"docs": "https://hono.dev/docs/",
+			"llms": "https://hono.dev/llms.txt",
+			"skill": "hono"
+		},
+		"@hono/zod-validator": {
+			"docs": "https://github.com/honojs/middleware/tree/main/packages/zod-validator"
+		},
+		"input-otp": {
+			"docs": "https://github.com/guilhermerodz/input-otp#readme"
+		},
+		"jsdom": {
+			"docs": "https://github.com/jsdom/jsdom#readme"
+		},
+		"knip": {
+			"docs": "https://knip.dev/overview/getting-started"
+		},
+		"lucide-react": {
+			"docs": "https://lucide.dev/guide/packages/lucide-react"
+		},
+		"next-themes": {
+			"docs": "https://github.com/pacocoursey/next-themes#readme"
+		},
+		"nitro": {
+			"docs": "https://nitro.build/",
+			"note": "TanStack Start hosting guide: https://tanstack.com/start/latest/docs/framework/react/guide/hosting"
+		},
+		"pg": {
+			"docs": "https://node-postgres.com/",
+			"note": "with Hyperdrive: https://developers.cloudflare.com/hyperdrive/examples/connect-to-postgres/postgres-drivers-and-libraries/drizzle-orm/"
+		},
+		"@playwright/test": {
+			"docs": "https://playwright.dev/docs/intro"
+		},
+		"radix-ui": {
+			"docs": "https://www.radix-ui.com/primitives/docs/overview/introduction"
+		},
+		"react": {
+			"docs": "https://react.dev/reference/react",
+			"llms": "https://react.dev/llms.txt"
+		},
+		"react-dom": {
+			"docs": "https://react.dev/reference/react-dom",
+			"llms": "https://react.dev/llms.txt"
+		},
+		"react-email": {
+			"docs": "https://react.email/docs/introduction",
+			"note": "components and render() come from react-email since 6.0"
+		},
+		"@react-email/ui": {
+			"docs": "https://react.email/docs/cli",
+			"note": "the preview server behind `email dev`"
+		},
+		"resend": {
+			"docs": "https://resend.com/docs/send-with-nodejs",
+			"llms": "https://resend.com/docs/llms.txt"
+		},
+		"shadcn": {
+			"docs": "https://ui.shadcn.com/docs",
+			"llms": "https://ui.shadcn.com/llms.txt"
+		},
+		"sonner": {
+			"docs": "https://sonner.emilkowal.ski/"
+		},
+		"sql.js": {
+			"docs": "https://sql.js.org/"
+		},
+		"@svgr/plugin-jsx": {
+			"docs": "https://react-svgr.com/docs/options/"
+		},
+		"@svgr/plugin-svgo": {
+			"docs": "https://react-svgr.com/docs/svgo/"
+		},
+		"tailwind-merge": {
+			"docs": "https://github.com/dcastil/tailwind-merge"
+		},
+		"tailwindcss": {
+			"docs": "https://tailwindcss.com/docs"
+		},
+		"@tailwindcss/typography": {
+			"docs": "https://github.com/tailwindlabs/tailwindcss-typography"
+		},
+		"@tailwindcss/vite": {
+			"docs": "https://tailwindcss.com/docs/installation/using-vite"
+		},
+		"@tanstack/devtools-vite": {
+			"docs": "https://tanstack.com/devtools/latest/docs/overview",
+			"llms": "https://tanstack.com/devtools/latest/llms.txt"
+		},
+		"@tanstack/react-devtools": {
+			"docs": "https://tanstack.com/devtools/latest/docs/overview",
+			"llms": "https://tanstack.com/devtools/latest/llms.txt"
+		},
+		"@tanstack/react-form": {
+			"docs": "https://tanstack.com/form/latest/docs/framework/react/quick-start",
+			"llms": "https://tanstack.com/form/latest/llms.txt"
+		},
+		"@tanstack/react-query": {
+			"docs": "https://tanstack.com/query/latest/docs/framework/react/overview",
+			"llms": "https://tanstack.com/query/latest/llms.txt"
+		},
+		"@tanstack/react-query-devtools": {
+			"docs": "https://tanstack.com/query/latest/docs/framework/react/devtools",
+			"llms": "https://tanstack.com/query/latest/llms.txt"
+		},
+		"@tanstack/react-router": {
+			"docs": "https://tanstack.com/router/latest/docs/framework/react/overview",
+			"llms": "https://tanstack.com/router/latest/llms.txt"
+		},
+		"@tanstack/react-router-devtools": {
+			"docs": "https://tanstack.com/router/latest/docs/framework/react/devtools",
+			"llms": "https://tanstack.com/router/latest/llms.txt"
+		},
+		"@tanstack/react-router-ssr-query": {
+			"docs": "https://tanstack.com/router/latest/docs/integrations/query",
+			"llms": "https://tanstack.com/router/latest/llms.txt"
+		},
+		"@tanstack/react-start": {
+			"docs": "https://tanstack.com/start/latest/docs/framework/react/overview",
+			"llms": "https://tanstack.com/start/latest/llms.txt",
+			"note": "version-matched skills: node_modules/@tanstack/start-client-core/skills/start-core/"
+		},
+		"@tanstack/router-cli": {
+			"docs": "https://tanstack.com/router/latest/docs/framework/react/overview",
+			"llms": "https://tanstack.com/router/latest/llms.txt"
+		},
+		"@testing-library/react": {
+			"docs": "https://testing-library.com/docs/react-testing-library/intro/"
+		},
+		"tw-animate-css": {
+			"docs": "https://github.com/Wombosvideo/tw-animate-css"
+		},
+		"typescript": {
+			"docs": "https://www.typescriptlang.org/tsconfig/"
+		},
+		"vite": {
+			"docs": "https://vite.dev/guide/",
+			"llms": "https://vite.dev/llms.txt"
+		},
+		"vite-plugin-svgr": {
+			"docs": "https://github.com/pd4d10/vite-plugin-svgr#readme",
+			"note": "SVGR options: https://react-svgr.com/docs/options/"
+		},
+		"@vitejs/plugin-react": {
+			"docs": "https://github.com/vitejs/vite-plugin-react"
+		},
+		"vitest": {
+			"docs": "https://vitest.dev/guide/",
+			"llms": "https://vitest.dev/llms.txt"
+		},
+		"wrangler": {
+			"docs": "https://developers.cloudflare.com/workers/wrangler/",
+			"llms": "https://developers.cloudflare.com/workers/llms.txt",
+			"skill": "wrangler"
+		},
+		"zod": {
+			"docs": "https://zod.dev",
+			"llms": "https://zod.dev/llms.txt"
+		}
+	}
+}

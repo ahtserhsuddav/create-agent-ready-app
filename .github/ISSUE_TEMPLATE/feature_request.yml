@@ -1,0 +1,23 @@
+name: Feature or add-on request
+description: Something the kit should set up, such as a new add-on, provider, deploy target or framework.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What should the kit set up?
+      placeholder: A Stripe add-on with checkout and webhooks.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: What you build with it, and what you do by hand today.
+    validations:
+      required: true
+  - type: textarea
+    id: docs
+    attributes:
+      label: Official docs
+      description: Links to the official setup guide. The kit's templates only follow official docs.

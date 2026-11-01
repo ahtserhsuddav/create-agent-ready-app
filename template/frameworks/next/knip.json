@@ -1,0 +1,28 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+{{#shadcn}}
+    "src/shared/components/ui/*.tsx",
+{{/shadcn}}
+{{#hono}}
+    "src/shared/api/hono/client.ts",
+    "src/server/api/hono/middleware.ts",
+{{/hono}}
+{{#db}}
+    "src/server/db/drizzle/test-client.ts",
+{{/db}}
+{{#auth}}
+    "better-auth.config.ts",
+{{/auth}}
+{{#form}}
+    "src/shared/lib/tanstack/form-hook.ts",
+{{/form}}
+{{#email}}
+    "src/server/email/*/send.ts",
+    "src/server/email/templates/*.tsx",
+{{/email}}
+    "scripts/**/*.ts"
+  ],
+  "project": ["src/**/*.{ts,tsx,css}", "scripts/**/*.ts"],
+  "ignoreDependencies": ["@svgr/webpack", "@tailwindcss/turbopack", "@playwright/cli"]
+}

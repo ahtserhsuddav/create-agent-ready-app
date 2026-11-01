@@ -1,0 +1,177 @@
+{
+  "linter": {
+    "rules": {
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "noUnusedFunctionParameters": "error"
+      },
+      "performance": {
+        "noBarrelFile": "error",
+        "noReExportAll": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "src/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "error"
+          },
+          "suspicious": {
+            "noConsole": {
+              "level": "warn",
+              "options": {
+                "allow": [
+                  "error",
+                  "warn",
+                  "info"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/app/**",
+        "src/**/*.d.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/server/email/templates/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/server/db/drizzle/tables.ts"
+      ],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off",
+            "noReExportAll": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/shared/**",
+        "!src/shared/api/hono/client.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "#/features",
+                      "#/features/**",
+                      "#/server",
+                      "#/server/**"
+                    ],
+                    "message": "src/shared is generic: it never imports features or server code. Move feature code into its feature."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/features/*/components/**",
+        "src/features/*/hooks/**",
+        "src/shared/components/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "#/server",
+                      "#/server/**",
+                      "**/server",
+                      "**/server/**"
+                    ],
+                    "message": "Client components and hooks never import server code. Server Components in src/app/ call the feature's service; client code uses its hooks (RPC client) or actions.ts (Server Actions)."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/server/**",
+        "!src/server/api/hono/app.ts",
+        "!src/server/db/drizzle/tables.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": [
+                      "#/features",
+                      "#/features/**"
+                    ],
+                    "message": "src/server is infrastructure: only api/hono/app.ts (routes) and db/drizzle/tables.ts (tables) import features."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "scripts/agent/**"
+      ],
+      "formatter": {
+        "enabled": false
+      },
+      "linter": {
+        "enabled": false
+      },
+      "assist": {
+        "enabled": false
+      }
+    }
+  ]
+}
